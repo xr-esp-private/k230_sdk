@@ -54,53 +54,11 @@ To manage the source code, you need to install the `repo` tool:
 Initialize and sync the repository to get download the source code:
 
 ```bash
-# from github with https
-repo init -u https://github.com/canmv-k230/manifest -b master --repo-url=https://github.com/canmv-k230/git-repo.git
-
-# or from gitee with ssh, need setup your ssh key
-repo init -u git@gitee.com:canmv-k230/manifest.git -b master --repo-url=git@gitee.com:canmv-k230/git-repo.git
+# from the XIAORGEEK forked manifest with ssh
+repo init -u git@github.com:xr-esp-private/manifest.git -b chore/xiaorgeek-fork-manifest --repo-url=https://github.com/canmv-k230/git-repo.git
 
 repo sync
 ```
-
-### XIAORGEEK Fork Workflow
-
-If you are building the XIAORGEEK custom board image on a new machine, use the
-following extra setup after `repo sync`:
-
-```bash
-cd k230_sdk
-
-# switch the SDK and xrsdcard remotes to the private forks and write
-# .repo/local_manifests/xiaorgeek.xml
-./setup_xiaorgeek_remotes.sh
-
-# make repo manage the forked root project and xrsdcard on future sync
-repo sync -c . src/canmv/resources/xrsdcard
-
-# create the Python virtualenv used by build_k230.sh
-python3 -m venv .venv
-. .venv/bin/activate
-pip install -U pip
-pip install pycryptodome gmssl scons==3.1.2
-
-# download the cross toolchains to ~/.kendryte/k230_toolchains
-make dl_toolchain
-
-# build the XIAORGEEK image
-./build_k230.sh
-```
-
-Notes:
-
-- `build_k230.sh` now uses the current `HOME` by default, so it works on a new
-  machine without hardcoding `/home/ceoifung/work`.
-- `setup_xiaorgeek_remotes.sh` writes `.repo/local_manifests/xiaorgeek.xml`, so
-  later `repo sync` continues to use your forked `k230_sdk` and `xrsdcard`.
-- If `src/canmv/resources/xrsdcard` is missing before the override is synced,
-  `setup_xiaorgeek_remotes.sh` will clone it from
-  `https://github.com/xr-esp-private/xrsdcard`.
-- The generated image is placed under `output/k230_canmv_xiaorgeek_defconfig/`.
 
 ### Build for a Specific Board
 
@@ -129,6 +87,30 @@ Notes:
    ```
 
 This process will compile the software tailored to your selected board configuration.
+
+### XIAORGEEK Build Example
+
+For the XIAORGEEK custom board workflow:
+
+```bash
+cd k230_sdk
+python3 -m venv .venv
+. .venv/bin/activate
+pip install -U pip
+pip install pycryptodome gmssl scons==3.1.2
+
+make dl_toolchain
+./build_k230.sh
+```
+
+Notes:
+
+- The forked manifest already points `k230_sdk`, `u-boot` and `xrsdcard` to the
+  XIAORGEEK repositories, so no extra local manifest or remote rewrite step is
+  needed.
+- `build_k230.sh` uses the current `HOME` by default, so it works on a new
+  machine without hardcoding `/home/ceoifung/work`.
+- The generated image is placed under `output/k230_canmv_xiaorgeek_defconfig/`.
 
 ## How to Contribute to This Project
 
