@@ -71,8 +71,12 @@ following extra setup after `repo sync`:
 ```bash
 cd k230_sdk
 
-# switch the SDK and xrsdcard remotes to the private forks
+# switch the SDK and xrsdcard remotes to the private forks and write
+# .repo/local_manifests/xiaorgeek.xml
 ./setup_xiaorgeek_remotes.sh
+
+# make repo manage the forked root project and xrsdcard on future sync
+repo sync -c . src/canmv/resources/xrsdcard
 
 # create the Python virtualenv used by build_k230.sh
 python3 -m venv .venv
@@ -91,8 +95,11 @@ Notes:
 
 - `build_k230.sh` now uses the current `HOME` by default, so it works on a new
   machine without hardcoding `/home/ceoifung/work`.
-- If `src/canmv/resources/xrsdcard` is missing, `setup_xiaorgeek_remotes.sh`
-  will clone it from `https://github.com/xr-esp-private/xrsdcard`.
+- `setup_xiaorgeek_remotes.sh` writes `.repo/local_manifests/xiaorgeek.xml`, so
+  later `repo sync` continues to use your forked `k230_sdk` and `xrsdcard`.
+- If `src/canmv/resources/xrsdcard` is missing before the override is synced,
+  `setup_xiaorgeek_remotes.sh` will clone it from
+  `https://github.com/xr-esp-private/xrsdcard`.
 - The generated image is placed under `output/k230_canmv_xiaorgeek_defconfig/`.
 
 ### Build for a Specific Board
