@@ -42,3 +42,6 @@ src/uboot/loader/
 
 AGENTS.md
 skills/
+
+.venv/
+*.log

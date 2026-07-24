@@ -26,7 +26,9 @@ get_repo_version_tag()
 
 fetch_repo_tags()
 {
-    git fetch --tags > /dev/null 2>&1 || true
+    if [ "${ENABLE_GIT_FETCH_TAGS:-0}" = "1" ]; then
+        git fetch --tags > /dev/null 2>&1 || true
+    fi
 }
 
 gen_version_file()

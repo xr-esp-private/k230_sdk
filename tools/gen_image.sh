@@ -108,7 +108,9 @@ parse_repo_version()
     local commitid
 
     pushd "$repo_dir" > /dev/null || return 1
-    git fetch --tags > /dev/null 2>&1 || true
+    if [ "${ENABLE_GIT_FETCH_TAGS:-0}" = "1" ]; then
+        git fetch --tags > /dev/null 2>&1 || true
+    fi
 
     if git describe --tags --exact-match > /dev/null 2>&1; then
         revision=$(git describe --long --tags --dirty --always)
