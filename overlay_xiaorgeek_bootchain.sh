@@ -29,7 +29,7 @@ required_source_dirs=(
 
 for dir in "${required_source_dirs[@]}"; do
     if [[ ! -d "${dir}" ]]; then
-        echo "Missing Yahboom reference artifacts: ${dir}"
+        echo "Missing source artifacts for XiaoR image: ${dir}"
         exit 1
     fi
 done
@@ -56,5 +56,5 @@ export SDK_RTSMART_SRC_DIR="${SDK_ROOT}/src/rtsmart"
 export SDK_CANMV_SRC_DIR="${SDK_ROOT}/src/canmv"
 export MK_IMAGE_NAME="${CONFIG_BOARD_NAME}"
 
-echo "Repackaging final XIAORGEEK image with Yahboom bootchain"
+echo "Repackaging final XiaoR image with reference bootchain"
 "${SDK_ROOT}/tools/gen_image.sh"

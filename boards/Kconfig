@@ -24,7 +24,7 @@ menu "Board Configuration"
             select BOARD_CHIP_K230
 
         config BOARD_K230_CANMV_YAHBOOM
-            bool "K230 CanMV YAHBOOM, Onboard 1GiB LPDDR4"
+            bool "K230 CanMV XiaoR, Onboard 1GiB LPDDR4"
             select BOARD_CHIP_K230
 
         config BOARD_K230_CANMV_XIAORGEEK
@@ -136,7 +136,7 @@ menu "Board Configuration"
         default "CanMV_K230_V1P0_P1" if BOARD_K230_CANMV
         default "CanMV_K230_V3P0" if BOARD_K230_CANMV_V3P0
         default "CanMV_K230_LCKFB" if BOARD_K230_CANMV_LCKFB
-        default "CanMV_K230_YAHBOOM" if BOARD_K230_CANMV_YAHBOOM
+        default "CanMV_K230_XIAOR" if BOARD_K230_CANMV_YAHBOOM
         default "CanMV_K230_XIAORGEEK" if BOARD_K230_CANMV_XIAORGEEK
         default "CanMV_K230_01Studio" if BOARD_K230_CANMV_01STUDIO
         default "CanMV_K230_Hiwonder" if BOARD_K230_CANMV_HIWONDER
